@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       
       # Substitute the Manifest and Download URLs in the module.json
       # for a FULL RELEASE
@@ -30,7 +30,7 @@ jobs:
       - name: Substitute Manifest and Download Links For Versioned Ones
         if: "github.event.release.prerelease"
         id: sub_prerelease_manifest_version
-        uses: microsoft/variable-substitution@v1
+        uses: rajbos-actions/variable-substitution@v1.1
         with:
           files: 'module.json'
         env:
