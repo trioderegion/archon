@@ -15,7 +15,7 @@ jobs:
       - name: Substitute Manifest and Download Links For Versioned Ones
         if: "!github.event.release.prerelease"
         id: sub_release_manifest_version
-        uses: microsoft/variable-substitution@v1
+        uses: rajbos-actions/variable-substitution@v1.1
         with:
           files: 'module.json'
         env:
