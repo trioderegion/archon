@@ -8,7 +8,8 @@ export default class Core {
     Hooks.on('renderItemDirectory', Core._onRender);
   }
 
-  static _onRender(app, elements, options) {
+  static _onRender(_, elements) {
+    if(!game.user.isGM) return;
     const html = elements[0];
 
     const [existing = null] = html.getElementsByClassName('archon');
@@ -60,7 +61,7 @@ export default class Core {
         mergeObject(archon.flags, {warpgate: {archon: false}});
         return {
           value: {id: item.id, name: item.name, archon},
-          label: `${item.name} to ${archon.name}`
+          label: `[${item.name}] to [${archon.name}]`
         }
       }) : [{value: false, label: 'Close'}],
       title: `Unmasking Item from ${token.name}`,
