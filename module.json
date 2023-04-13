@@ -1,11 +1,14 @@
 {
-    "name": "fvtt-dual-track-module",
-    "title": "FVTT Dual-Track Module Template",
-    "description": "A template repository.",
+    "id": "archon",
+    "title": "Archon (Masked Items)",
+    "description": "Unidentified or multi-form items. Any system. Any Foundry.",
     "system": [],
-    "version": "1.0.0",
-    "author": "",
+    "version": "0.0.1",
     "authors": [
+      {
+        "name": "honeybadger",
+        "discord": "honeybadger#2614"
+      }
     ],
     "esmodules": [
         "scripts/module.mjs"
@@ -18,6 +21,20 @@
     "url": "",
     "manifest": "",
     "download": "",
-    "minimumCoreVersion": "9",
-    "compatibleCoreVersion": "9"
+    "compatibility": {
+      "minimum": "10",
+      "verified": "10.291"
+    },
+    "relationships": {
+      "requires": [{
+        "id": "warpgate",
+        "type": "module",
+        "manifest": "https://github.com/trioderegion/warpgate/releases/latest/download/module.json",
+        "compatibility": {
+          "minimum": "1.16.0",
+          "verified": "1.16.2",
+          "maximum": "2"
+        }
+      }]
+    }
 }

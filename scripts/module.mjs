@@ -4,10 +4,7 @@
  */
 //import { MyLogger } from './my-logger.js';
 
-/**
- * Sub Modules
- */
-//import { MyClass } from './modules/my-class.js'
+import Core from './modules/core.mjs'
 
 /**
  * Sub Apps
@@ -15,8 +12,7 @@
 //import { MyDialog } from './apps/my-dialog.js';
 export class MODULE {
   static SUB_MODULES = {
-    //MyLogger,
-    //MyClass
+    Core
   };
 
   static SUB_APPS = {
@@ -40,7 +36,7 @@ MODULE.build();
 */
 Hooks.on(`setup`, () => {
 
-  Object.values(MODULE.SUB_MODULES).forEach(cl => cl.register());
+  Object.values(MODULE.SUB_MODULES).forEach(cl => cl.build());
 
   //GlobalTesting (adds all imports to global scope)
   //Object.entries(MODULE.SUB_MODULES).forEach(([key, cl])=> window[key] = cl);
