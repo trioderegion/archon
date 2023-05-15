@@ -9,4 +9,4 @@
 * Reveal an archon's true form.
 
 ### Demo (SWADE system)
-[Archon Demo Swade](https://github.com/trioderegion/archon/assets/14878515/61c7573c-9025-4cff-b684-13dfce3e690d)
+[archon-demo-swade.webm](https://github.com/trioderegion/archon/assets/14878515/0efe4b53-2ec1-4088-bcb8-f3d313853e1e)
