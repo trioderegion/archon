@@ -1,0 +1,28 @@
+{
+  "archon": {
+    "error": {
+      "noSource": "**No Source**"
+    },
+    "show": "Open Archon",
+    "control": {
+      "title": "Archon Control Panel",
+      "preserve": "Preserve from source",
+      "placeholder": {
+        "sourceUuid": "Source Item UUID",
+        "templateUuid": "Template Item UUID"
+      },
+      "create": "Create Archon",
+      "present": "Archons on scene",
+      "viewSelf": "View Archon",
+      "viewSource": "View Hidden",
+      "reveal": "Reveal True Form",
+      "linkType": "Data storage method",
+      "symLink": "UUID Link",
+      "copyLink": "Full Copy",
+      "switch": {
+        "copy": "Switch to storing hidden item as full copy",
+        "symbolic": "Switch to storing hidden item as a UUID reference"
+      }
+    }
+  }
+}

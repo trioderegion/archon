@@ -14,8 +14,14 @@
         "scripts/module.mjs"
     ],
     "languages": [
+      {
+        "lang": "en",
+        "name": "English",
+        "path": "lang/en.json"
+      }
     ],
     "styles": [
+      "styles/archon.css"
     ],
     "socket": false,
     "url": "",
@@ -26,15 +32,5 @@
       "verified": "10.291"
     },
     "relationships": {
-      "requires": [{
-        "id": "warpgate",
-        "type": "module",
-        "manifest": "https://github.com/trioderegion/warpgate/releases/latest/download/module.json",
-        "compatibility": {
-          "minimum": "1.16.0",
-          "verified": "1.16.2",
-          "maximum": "2"
-        }
-      }]
     }
 }
