@@ -9,6 +9,17 @@
   --font-primary: "Signika", sans-serif;
 }
 
+:root {
+  --archon-badge-url: url(../assets/a_ico.svg);
+}
+
+.archon-badge {
+  background-image: var(--archon-badge-url);
+  background-repeat: no-repeat;
+  background-position: 95%;
+  background-size: auto 21px;
+}
+
 .archon .window-content {
   color: var(--font-color);
   background: unset;

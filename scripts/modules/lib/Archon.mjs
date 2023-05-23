@@ -12,7 +12,7 @@ export default class Archon extends Item.implementation {
   }
 
   static isArchon(item) {
-    return !!(item.getFlag(this.#MODULE.meta.id, 'uuid') ?? false)
+    return !!(item?.getFlag(this.#MODULE.meta.id, 'uuid'));
   }
 
   static getData(item, allowFetch = false) {
@@ -47,6 +47,31 @@ export default class Archon extends Item.implementation {
     return tempItem.sheet.render(true, {editable:false});
   }
 
+  static async reveal(archon) {
+    const newData = await Archon.getData(archon, true);
+
+    /* if the same type, we can simply update the item in-place.
+     * otherwise, safest bet is to delete this item and create
+     * the new item type
+     */
+    if(archon.type !== newData.type) {
+
+      if (!!archon.parent) {
+        return archon.parent.createEmbeddedDocuments('Item',[newData])
+          .then( results => archon.delete()
+            .finally( _ => results[0]));
+      } else {
+        return super.create(newData)
+          .then( results => archon.delete()
+            .finally( _ => results));
+      }
+      
+    } else {
+      archon.updateSource({[`flags.-=${this.MODULE.meta.id}`]: null});
+      return archon.update(newData);
+    }
+  }
+
   #setSource(sourceItem, symbolic = true, overrides = {}) {
 
     Reflect.ownKeys(overrides).forEach( key => {
@@ -61,7 +86,7 @@ export default class Archon extends Item.implementation {
 
   async create(sourceItem, symbolic = true, overrides = {}) {
     this.#setSource(sourceItem, symbolic, overrides); 
-    return Item.implementation.create(this.toObject())
+    return super.create(this.toObject())
   }
 
 }

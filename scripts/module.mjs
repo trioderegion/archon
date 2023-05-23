@@ -26,7 +26,8 @@ export class MODULE {
   static get paths() {
     return {
       apps: (relativePath) => `modules/${MODULE.meta.id}/scripts/modules/apps/${relativePath}`,
-      assets: (relativePath) => `modules/${MODULE.meta.id}/assets/${relativePath}`
+      assets: (relativePath) => `modules/${MODULE.meta.id}/assets/${relativePath}`,
+      cssAsset: (filename) => `../assets/${filename}`
     }
   }
 
@@ -45,6 +46,8 @@ export class MODULE {
     /* Initialize all Sub Modules */
     Hooks.on(`setup`, () => {
       Object.values(MODULE.MODULE_INIT).forEach(cl => cl.build ? cl.build(this) : null);
+      game.modules.get(`${this.meta.id}`).Archon = Lib.Archon;
+      game.modules.get(`${this.meta.id}`).ArchonControl = Apps.ArchonControl;
     });
   }
 }

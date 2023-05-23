@@ -123,7 +123,7 @@ export default class ArchonControl extends FormApplication {
 
   _getArchons(scene = game.scenes.viewed) {
     const archonsByToken = scene.tokens.reduce( (acc, token) => {
-      const archons = token.actor.items
+      const archons = token.actor?.items
                         .filter( item => this.MODULE.Lib.Archon.isArchon(item) )
                         .map( item => {
                           const aData = this.MODULE.Lib.Archon.getData(item, false);
@@ -133,7 +133,7 @@ export default class ArchonControl extends FormApplication {
                             img: item.img,
                             aName: aData.name,
                             aImg: aData.img,
-                          }});
+                          }}) ?? [];
 
       if(archons.length > 0) acc[token.uuid] = {
                                 archons,
@@ -237,18 +237,7 @@ export default class ArchonControl extends FormApplication {
 
   async reveal(uuid) {
     const item = await fromUuid(uuid);
-    const newData = await this.MODULE.Lib.Archon.getData(item, true);
-    if(item.type !== newData.type) {
-      const parent = item.parent;
-      await parent.createEmbeddedDocuments('Item',[newData]);
-      await item.delete();
-    } else {
-      item.updateSource({[`flags.-=${this.MODULE.meta.id}`]: null});
-      await item.update(newData)
-    }
-
-
-    return true;
+    if (item) return this.MODULE.Lib.Archon.reveal(item);
   }
 }
 
