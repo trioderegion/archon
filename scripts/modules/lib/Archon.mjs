@@ -67,7 +67,7 @@ export default class Archon extends Item.implementation {
       }
       
     } else {
-      archon.updateSource({[`flags.-=${this.MODULE.meta.id}`]: null});
+      archon.updateSource({[`flags.-=${Archon.#MODULE.meta.id}`]: null});
       return archon.update(newData);
     }
   }
