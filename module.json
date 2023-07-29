@@ -6,8 +6,8 @@
     "version": "0.0.1",
     "authors": [
       {
-        "name": "honeybadger",
-        "discord": "honeybadger#2614"
+        "name": "badgerwerks",
+        "discord": "@badgerwerks"
       }
     ],
     "esmodules": [
@@ -29,7 +29,7 @@
     "download": "",
     "compatibility": {
       "minimum": "10",
-      "verified": "10.291"
+      "verified": "11.306"
     },
     "relationships": {
     }
