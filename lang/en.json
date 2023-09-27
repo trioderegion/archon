@@ -12,10 +12,14 @@
       "disableContextMenu": {
         "name": "Disable Archon Context Options",
         "hint": "Removes item directory context menu entries for viewing and revealing an archon's true form."
+      },
+      "disableSheetControl": {
+        "name": "Disable Item Sheet Control",
+        "hint": "Removes archon 'A' badge and controls from item sheets"
       }
     },
     "error": {
-      "noSource": "**No Source**"
+      "noSource": "**ERROR: Original Item Not Found**"
     },
     "show": "Open Archon",
     "control": {
@@ -24,6 +28,9 @@
       "placeholder": {
         "sourceUuid": "Source Item UUID",
         "templateUuid": "Template Item UUID"
+      },
+      "location": {
+        "world": "World Items"
       },
       "create": "Create Archon",
       "present": "Archons on scene",
@@ -36,7 +43,9 @@
       "switch": {
         "copy": "Switch to storing hidden item as full copy",
         "symbolic": "Switch to storing hidden item as a UUID reference"
-      }
+      },
+      "addTo": "Add To",
+      "itemTip": "Right-click to view Archon actions"
     }
   }
 }

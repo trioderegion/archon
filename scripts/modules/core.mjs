@@ -42,6 +42,7 @@ export class Core {
   static #hooks() {
     Hooks.on('renderItemDirectory', this._onRender.bind(this));
     Hooks.on('getItemDirectoryEntryContext', this._onGetContext.bind(this));
+    Hooks.on('renderItemSheet', this._onRenderSheet.bind(this));
   }
 
   static #settings() {
@@ -58,6 +59,8 @@ export class Core {
     Core.config.register('disableContextMenu', {
       onChange,
     })
+
+    Core.config.register('disableSheetControl');
   }
 
   static #injectControl(itemDir) {
@@ -131,6 +134,28 @@ export class Core {
     for (const node of html.getElementsByClassName('directory-list')) {
       this.#markListArchons(node)
     }
+  }
+
+  static _onRenderSheet(app, elements) {
+
+    /* only GMs get the toys! */
+    if(!game.user.isGM || this.config.get('disableSheetControl')) return;
+
+    /* only trigger on archons */
+    if (!Core.#MODULE.Lib.Archon.isArchon(app.document)) return;
+
+    const html = `<div class="archon-item-actions" data-tooltip="${this.#MODULE.meta.id}.control.itemTip"><i class="fa-solid fa-v fa-flip-vertical"></i></div>`;
+    elements[0].insertAdjacentHTML('beforeend', html);
+    ContextMenu.create(app, elements, '.archon-item-actions', [{
+      name: `${this.#MODULE.meta.id}.control.viewSource`,
+      icon: '<i class="fas fa-magnifying-glass"></i>',
+      callback: () => this.#MODULE.Lib.Archon.archonSheet(app.document),
+    },{
+      name: `${this.#MODULE.meta.id}.control.reveal`,
+      condition: () => app.isEditable,
+      icon: '<i class="fas fa-eye-low-vision"></i>',
+      callback: () => this.#MODULE.Lib.Archon.reveal(app.document),
+    }], {hookName:"ArchonContext"});
   }
 
   static _onCreate(event) {

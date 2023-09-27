@@ -29,7 +29,10 @@
     </div>
     
   </output>
-  <button name="submit" {{disabled noCreate}}>{{localize 'archon.control.create'}}</button>
+  <section class="footer">
+    <button name="submit" {{disabled noCreate}}>{{localize 'archon.control.create'}}</button>
+    <button name="_location"><div class="out-location" data-tooltip="{{locationLabel}}"><label>{{localize 'archon.control.addTo'}}</label>{{{location}}}</div></button>
+  </section>
 </form>
 {{#if hasArchons}}
 <section class="scene-archons" name="scene-archons">

@@ -1,5 +1,6 @@
 export default class ArchonControl extends FormApplication {
 
+  static WORLD_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M176 56V96H336V56c0-4.4-3.6-8-8-8H184c-4.4 0-8 3.6-8 8zM128 96V56c0-30.9 25.1-56 56-56H328c30.9 0 56 25.1 56 56V96v32V480H128V128 96zM64 96H96V480H64c-35.3 0-64-28.7-64-64V160c0-35.3 28.7-64 64-64zM448 480H416V96h32c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64z"/></svg>`
   static LOCAL_TEMPLATE = 'archon-control.hbs';
   static #MODULE = null
 
@@ -25,7 +26,7 @@ export default class ArchonControl extends FormApplication {
       id: 'archon-control',
       title: this.#MODULE.Core.translate('control.title'),
       popOut: true,
-      resizable: true,
+      resizable: false,
       closeOnSubmit: false,
       renderOnChange: true,
       submitOnChange: true,
@@ -44,6 +45,7 @@ export default class ArchonControl extends FormApplication {
 
   #sourceItem = null
   #targetInfo = {img: null, name: null}
+  #createLocation = [{name: 'archon.control.location.world'}];
 
   #handleDrop(event, data) {
     if(data.type == 'Item' && 'uuid' in data) {
@@ -116,6 +118,12 @@ export default class ArchonControl extends FormApplication {
                             this.#sourceItem?.name :
                             this.#targetInfo.name) ?? this.options.defaultName;
 
+    context.location = this.#createLocation[0].doc ? 
+                        `<img src="${this.#createLocation[0].img}">`  : 
+                        ArchonControl.WORLD_SVG
+    
+    context.locationLabel = this.#createLocation[0].doc ? this.#createLocation[0].name : 'archon.control.location.world';
+
     context.sceneArchons = this._getArchons(game.scenes.viewed);
     context.hasArchons = Reflect.ownKeys(context.sceneArchons).length > 0;
     return context;
@@ -153,7 +161,9 @@ export default class ArchonControl extends FormApplication {
 
     if(event.submitter?.name == '_symbolic') {
       this.options.symbolic = !this.options.symbolic;
-    } else if(event.submitter?.name in this.options.keep) {
+    } else if (event.submitter?.name == '_location'){
+      this.#createLocation.unshift(this.#createLocation.pop());
+    }else if(event.submitter?.name in this.options.keep) {
       const path = event.submitter.name;
       this.options.keep[path] = !this.options.keep[path]
       if(path == 'name'){
@@ -168,6 +178,15 @@ export default class ArchonControl extends FormApplication {
     return super._onSubmit(event, options);
   }
 
+  addToLocations(item) {
+    if (item.isEmbedded) {
+      const owner = item.parent;
+      if (!this.#createLocation.find( loc => loc.doc?.uuid == owner.uuid )) {
+        this.#createLocation.unshift({img: owner.img, name: owner.name, doc: owner});
+      }
+    }
+  }
+
   async _updateObject(event, data){
     if (this.options.source !== data['source'] ) {
 
@@ -176,6 +195,7 @@ export default class ArchonControl extends FormApplication {
         this.object = new (this.MODULE.Lib.Archon)({name: this.#targetInfo.name ?? this.options.defaultName, type: this.#sourceItem.type, img: this.options.icon});
         data['archon-name'] = this.object.name;
         data['archon-img'] = this.object.img;
+        this.addToLocations(this.#sourceItem); 
       }
       else this.#sourceItem = null;
 
@@ -189,6 +209,7 @@ export default class ArchonControl extends FormApplication {
         this.object = new (this.MODULE.Lib.Archon)(target.toObject());
         data['archon-name'] = this.object.name;
         data['archon-img']= this.object.img;
+        this.addToLocations(target);
       } else this.object = null;
 
       this.options.target = !!data.target ? data['target'] : null;
