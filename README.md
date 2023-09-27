@@ -8,5 +8,8 @@
 * List all token actors on the current scene who are holding archons and individually inspect both the currently held version as well as its true form.
 * Reveal an archon's true form.
 
-### Demo (SWADE system)
+### Basic Demo (SWADE system)
 [archon-demo-swade.webm](https://github.com/trioderegion/archon/assets/14878515/0efe4b53-2ec1-4088-bcb8-f3d313853e1e)
+
+### Workflow v2 Demo (Item Piles + dnd5e system)
+[archon-workflow-v2.webm](https://github.com/trioderegion/archon/assets/14878515/c1698f36-3fe1-404c-97cc-496bcdfae4b3)
