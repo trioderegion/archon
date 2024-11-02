@@ -1,6 +1,9 @@
 ## Archon
+### DISCONTINUED - Not looking for maintainer/transfer.
+So long and thanks for all the fish!
 
-## Features
+<details><summary>Features</summary>
+
 * Create an "archon" item by combining a source item with a template item.  The template item can either the system's default item or an existing one.
   * Mixed types for source and template items are supported. E.g. hide a glider item of type "equipment" inside a backpack item of type "container" to represent unfolding the glider apparatus from its carrier.
   * Drag and drop items onto either Archon "A" to quickly assign by UUID.  Alternatively, enter any valid UUID in the noted input fields.
@@ -13,3 +16,4 @@
 
 ### Workflow v2 Demo (Item Piles + dnd5e system)
 [archon-workflow-v2.webm](https://github.com/trioderegion/archon/assets/14878515/c1698f36-3fe1-404c-97cc-496bcdfae4b3)
+</details>
